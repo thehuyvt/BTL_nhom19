@@ -1,0 +1,175 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html{
+    scroll-behavior: smooth;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.main{
+
+}
+
+.header{
+    /* background-color: #ccc; */
+}
+
+.mnavbar{
+
+}
+
+.mnavbar li{
+    /* border-radius: 5px;
+    border: 1px solid #198754; */
+    padding: 10px;
+}
+
+.mnavbar li a{
+    text-decoration: none;
+    color: #198754;
+    font-size: 18px;
+    /* font-weight: bold; */
+}
+
+.mnavbar li:hover{
+    border-radius: 5px;;
+    background-color: #198754;
+}
+
+.mnavbar li:hover a{
+    color: #fff;
+}
+
+.header-search{
+    padding: 60px;
+    background:linear-gradient(180deg, rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.2)), url(../img/search-image.png) center / cover; 
+}
+
+/* Body */
+.body{
+    /* background-color: #ececec; */
+}
+/* Start REGISTER */
+.gradient-custom-3 {
+    /* fallback for old browsers */
+    background: #84fab0;
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
+  }
+  .gradient-custom-4 {
+    /* fallback for old browsers */
+    background: #84fab0;
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
+  }
+/* END REGISTER */
+
+/* Thành Phố */
+.card-adress{
+
+}
+
+.card-adress a{
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.9;
+}
+ 
+.card-adress .img-adress{
+    width: 250px;
+    height: 300px;
+    border-radius: 10px;
+}
+
+.card-adress .text-adress{
+    position: relative;
+    bottom: 50px;
+    color: #fff;
+}
+
+.card-adress:hover a{
+    opacity: 1;
+    text-decoration: underline;
+    color: #fff;
+}
+
+/* Nhà trọ nổi bật */
+.motel-box {
+    box-sizing: border-box;
+    padding: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.motel-box .motel-img{
+    width: 100%;
+    opacity: 0.8;
+}
+
+.motel-box:hover .motel-img{
+    opacity: 1;
+}
+
+.motel-box .motel-infor{
+    margin: 16px;
+}
+
+
+/* Social */
+.social-icon{
+    width: 100%;
+    text-align: center;
+    margin: 16px 0;
+}
+
+.social-icon a{
+    text-decoration: none;
+    font-size: 24px;
+    padding: 16px;
+    color: rgb(75, 73, 73);
+    /* opacity: 0.85; */
+}
+
+.facebook-icon , 
+.twitter-icon{
+    color: #0099ff;
+}
+
+.instagram-icon{
+    color: transparent;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249F 60%, #285AEB 90%);
+    background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249F 60%, #285AEB 90%);
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+/* .social-icon a:hover{
+    opacity: 1;
+} */
+
+/* Footer */
+#footer{
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+#footer a{
+    text-decoration: none;
+    color: #ff6b81;
+}
+
+#footer a:hover,
+#footer-menu:hover{
+    color: #ff4757;
+}
