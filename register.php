@@ -44,7 +44,7 @@
                     </div>
                     <div class="form-outline mb-2">
                         <label class="form-label" for="phonenumber">Số điện thoại:</label>
-                    <input type="text" id="phoneNumber" name="phonenumber" class="form-control form-control-lg" />
+                    <input type="text" id="phoneNumber" name="phoneNumber" class="form-control form-control-lg" />
                     </div>
                     <div class="d-flex justify-content-center">
                     <button type="submit" name="sbmRegister" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Đăng kí</button>

@@ -1,15 +1,23 @@
 <?php
-    session_start();
-    if(!isset($_SESSION['loginSuccess'])){
-        header("Location:../index.php");
+    if(isset($_GET['post-id']) ){
+        $post_id = $_GET['post-id'] ; 
+        $sql = "SELECT * FROM posts WHERE post_id = '$post_id'";
+        include '../config.php';
+            $result = mysqli_query($conn, $sql);
+
+            if(mysqli_num_rows($result)>0){
+                $row = mysqli_fetch_assoc($result);
+                $title = $row['post_title'];
+                $img = $row['post_img'];
+                $area = $row['post_area'];
+                $price = $row['post_price'];
+                $address = $row['post_address'];
+                $content = $row['post_content'];
+                $user_id = $row['user_id'];
+            }
     }
-    include '../config.php';
-    $email = $_SESSION['loginSuccess'];
-    $sql = "SELECT * FROM users WHERE user_email = '$email'";
-    $result = mysqli_query($conn,$sql);
-    if(mysqli_num_rows($result)>0){
-        $row=mysqli_fetch_assoc($result);
-        $user_id = $row['user_id'];
+    else{
+        echo "Lỗi, không thể truy cập!";
     }
 ?>
 <!DOCTYPE html>
@@ -62,30 +70,32 @@
         <div class="col-md-12 border-right">
             <div class="p-3 py-5">
                 <div class="col-md-12 mb-3">
-                    <h4 class="text-center">Đăng bài</h4>
+                    <h4 class="text-center">Sửa bài</h4>
                 </div>
-                <form action="" method="post" enctype="multipart/form-data">
+
+                    <form action="" method="post" enctype="multipart/form-data">
+                    <img src="../asset/upload/<?php echo $img?>" alt="" class="form-control">
+                    <label class="labels mb-2">Hình ảnh:</label><br>
+                    <input type="file" class="form-control" id="image" name="image" value="<?php echo $img?>"><br>
+
                     <label class="labels mb-2">Tiêu đề:</label><br>
-                    <input type="text" class="form-control " id="title" name="title"><br>
+                    <input type="text" class="form-control " id="title" name="title" value="<?php echo $title?>"><br>
 
                     <label class="labels mb-2">Nội dung:</label><br>
-                    <textarea name="content" id="content" class="form-control " rows="5" placeholder="Mô tả ...."></textarea><br>
+                    <input name="content" id="content" class="form-control " rows="5"  value="<?php echo $content?>"></input><br>
                     
                     <label class="labels mb-2">Diện tích:</label><br>
-                    <input type="text" class="form-control " id="area" name="area"><br>
+                    <input type="text" class="form-control " id="area" name="area" value="<?php echo $area?>"><br>
 
                     <label class="labels mb-2">Địa Chỉ:</label><br>
-                    <input type="text" class="form-control " id="address" name="address"><br>
+                    <input type="text" class="form-control " id="address" name="address" value="<?php echo $address?>"><br>
 
                     <label class="labels mb-2">Giá thuê:</label><br>
-                    <input type="text" class="form-control " id="price" name="price"><br>
+                    <input type="text" class="form-control " id="price" name="price" value="<?php echo $price?>"><br>
 
-                    <label class="labels mb-2">Hình ảnh:</label><br>
-                    <input type="file" class="form-control " id="image" name="image"><br>
-                    
-                    <input type="submit" name = "sbmPost" class="btn btn-primary row mt-4 container " style="margin-left:0;" value="Post" >
-                </form>
-                
+                    <input type="submit" name = "sbmUpdate" class="btn btn-primary row mt-4 container " style="margin-left:0;" value="Cập nhật" >
+                    </form>
+
             </div>
         </div>
     </div>
@@ -93,7 +103,7 @@
 </div>
 <?php
    
-    if(isset($_POST['sbmPost'])){
+    if(isset($_POST['sbmUpdate'])){
         $post_title = $_POST['title'];
         $post_content = $_POST['content'];
         $post_area = $_POST['area'];
@@ -106,20 +116,20 @@
         $target_file = $target_dir . $post_img;
 
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            echo "The file ". htmlspecialchars($post_img). " has been uploaded.";
+            echo "File  ". htmlspecialchars($post_img). " đã được tải lên.";
         } else {
-            echo "Sorry, there was an error uploading your file.";
+            echo "Lỗi! Tải file ảnh không thành công.";
         }
 
-        $sql2 = "INSERT INTO posts(post_title, post_img, post_area, post_address, post_price, post_content, user_id) VALUES ('$post_title', '$post_img', '$post_area', '$post_address', '$post_price', '$post_content', '$user_id')";
+        $sql2 = "UPDATE posts SET post_title='$post_title', post_img = '$post_img', post_area = '$post_area', post_address = '$post_address', post_price = '$post_price', post_content = '$post_content' WHERE post_id = '$post_id' ";
         
         $result2 = mysqli_query($conn, $sql2);
 
         if($result2 > 0){
             // header("Location:index.php");
-            echo "Success!";
+            echo "Thành công!";
         }else{
-            echo "Erorr! Status upload failed!";
+            echo "Lỗi! Cập nhật thất bại";
         }
         
     }

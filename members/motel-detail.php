@@ -46,7 +46,7 @@
        <div class="header ">
         <nav class="navbar navbar-expand-lg navbar-light container">
             <div class="container-fluid">
-                <a class="navbar-brand " href="#">
+                <a class="navbar-brand " href="./index.php">
                 <img src="../asset/logo/logo2.jpg" alt="" width="62" height="62">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,9 @@
                     </li>
                     <li class="nav-item  mt-1 mb-1  ms-3">
                         <a aria-current="page" href="./posts.php">Đăng tin</a>
+                    </li>
+                    <li class="nav-item  mt-1 mb-1  ms-3">
+                        <a aria-current="page" href="./list-news.php">Sửa tin</a>
                     </li>
                     <li class="nav-item  mt-1 mb-1  ms-3">
                         <a aria-current="page" href="../logout.php">Đăng xuất</a>
@@ -95,6 +98,8 @@
                         echo '<p class="motel-infor-area">Diện tích: '.$area.' m2</p>';
                         echo '<p class="motel-infor-price">Giá thuê: '.$price.'đ</p>';
                         echo '<p class="motel-infor-address">Địa chỉ: '.$address.'</p>';
+                        echo '<p class="motel-infor-address">Mô tả: '.$content.'</p>';
+                        echo '<p class="motel-infor-address">Ngày đăng: '.$date.'</p>';
                         echo '<p class="motel-infor-address">Liên hệ: '.$user_name.'</p>';
                         echo '<p class="motel-infor-address">email: '.$user_email.'</p>';
                         echo '<p class="motel-infor-address">Số điện thoại: '.$user_phone.'</p>';

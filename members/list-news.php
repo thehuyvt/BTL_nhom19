@@ -1,3 +1,17 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['loginSuccess'])){
+        header("Location:../index.php");
+    }
+    include '../config.php';
+    $email = $_SESSION['loginSuccess'];
+    $sql = "SELECT * FROM users WHERE user_email = '$email'";
+    $result = mysqli_query($conn,$sql);
+    if(mysqli_num_rows($result)>0){
+        $row=mysqli_fetch_assoc($result);
+        echo $user_id = $row['user_id'];
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,35 +65,40 @@
        </div>
 
        <!-- body -->
-        <div class="body">
-            <div class="container">
-                <!-- Thành Phố -->
-                <div class="adress   row mt-5 mb-5 me-auto ms-auto text-center">
-                <div class="col-md-12  mb-4">
-                    <h2>Thành Phố</h2>
-                </div>
-                <div class="col-lg-4 card-adress">
-                    <a href="#">
-                        <img src="../asset/img/hanoi-img.png" alt="Hà Nội" srcset="" class="img-adress"> 
-                        <h4 class="text-adress">Hà Nội</h4>
-                    </a>
-                </div>
-                <div class="col-lg-4 card-adress">
-                    <a href="#">
-                        <img src="../asset/img/hochiminh.png" alt="Hồ Chí Minh" srcset="" class="img-adress"> 
-                        <h4 class="text-adress">Hồ Chí Minh</h4>
-                    </a>
-                </div>
-                <div class="col-lg-4 card-adress">
-                    <a href="#">
-                        <img src="../asset/img/danang.png" alt="Đà Nẵng" srcset="" class="img-adress"> 
-                        <h4 class="text-adress">Đà Nẵng</h4>
-                    </a>
-                </div>
-            </div>
-            <hr>
-            <!-- Nhà trọ nổi bật-->
-            <div class=" motel  row mt-5 mb-5 me-auto ms-auto">
+       <div class="body">
+           <div class="container">
+           <div class=" motel  row mt-5 mb-5 me-auto ms-auto">
                 <div class="col-md-12 text-center mb-4">
                     <h2>Nhà trọ nổi bật</h2>
                 </div>
+                
+                <?php
+                    $sql2 = "SELECT post_id, post_title, post_img, post_area, post_price, post_address fROM  posts WHERE user_id = $user_id ";
+                    $result2 = mysqli_query($conn, $sql2);
+
+                    if(mysqli_num_rows($result2)>0){
+                        while($row2 = mysqli_fetch_assoc($result2)){
+                            $post_id= $row2['post_id'];
+                            $title = $row2['post_title'];
+                            $img = $row2['post_img'];
+                            $area = $row2['post_area'];
+                            $price = $row2['post_price'];
+                            $address = $row2['post_address'];
+                        echo'<div class="col-lg-6" style="border: 8px solid #fff;">';
+                        echo'<div class="motel-box">';
+                        echo'<img src="../asset/upload/'.$img.'" alt="" class="motel-img">';
+                        echo'<div class="motel-infor">';
+                            echo'<h4 class="motel-infor-title">'.$title.'</h4>';
+                            echo'<p class="motel-infor-area">Diện tích: '.$area.' m2</p>';
+                            echo'<p class="motel-infor-price">Giá thuê: '.$price.'đ</p>';
+                            echo'<p class="motel-infor-address">Địa chỉ: '.$address.'</p>';
+                            echo'<a href="./update-news.php?post-id='.$post_id.'"class="motel-infor-detail btn btn-outline-warning">Sửa bài</a>';
+                        echo'</div>';
+                    echo'</div>';
+                echo'</div>';
+                }
+            }
+            ?>
+            </div>
+        </div>
+     <?php include 'footer.php'?>
