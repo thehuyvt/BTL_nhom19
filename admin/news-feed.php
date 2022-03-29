@@ -9,7 +9,7 @@
     $result = mysqli_query($conn,$sql);
     if(mysqli_num_rows($result)>0){
         $row=mysqli_fetch_assoc($result);
-        echo $user_id = $row['user_id'];
+        $user_id = $row['user_id'];
     }
 ?>
 <!DOCTYPE html>
@@ -44,10 +44,10 @@
                         <a aria-current="page" href="./news-feed.php">Bảng tin</a>
                     </li>
                     <li class="nav-item  mt-1 mb-1  ms-3">
-                        <a aria-current="page" href="./posts.php">Đăng tin</a>
+                        <a aria-current="page" href="./users.php">Quản lí người dùng</a>
                     </li>
                     <li class="nav-item  mt-1 mb-1  ms-3">
-                        <a aria-current="page" href="./list-news.php">Sửa tin</a>
+                        <a aria-current="page" href="./staffs.php">Quản lí nhân viên</a>
                     </li>
                     <li class="nav-item  mt-1 mb-1  ms-3">
                         <a aria-current="page" href="../logout.php">Đăng xuất</a>
@@ -69,11 +69,11 @@
            <div class="container">
            <div class=" motel  row mt-5 mb-5 me-auto ms-auto">
                 <div class="col-md-12 text-center mb-4">
-                    <h2>Danh sách nhà trọ đang cho thuê</h2>
+                    <h2>Danh sách nhà trọ</h2>
                 </div>
                 
                 <?php
-                    $sql2 = "SELECT post_id, post_title, post_img, post_area, post_price, post_address fROM  posts WHERE user_id = $user_id ";
+                    $sql2 = "SELECT * fROM posts ORDER BY post_id DESC";
                     $result2 = mysqli_query($conn, $sql2);
 
                     if(mysqli_num_rows($result2)>0){
@@ -84,6 +84,7 @@
                             $area = $row2['post_area'];
                             $price = $row2['post_price'];
                             $address = $row2['post_address'];
+                            $date = $row2['post_date'];
                         echo'<div class="col-lg-6" style="border: 8px solid #fff;">';
                         echo'<div class="motel-box">';
                         echo'<img src="../asset/upload/'.$img.'" alt="" class="motel-img">';
@@ -92,13 +93,15 @@
                             echo'<p class="motel-infor-area">Diện tích: '.$area.' m2</p>';
                             echo'<p class="motel-infor-price">Giá thuê: '.$price.'đ</p>';
                             echo'<p class="motel-infor-address">Địa chỉ: '.$address.'</p>';
-                            echo'<a href="./update-news.php?post-id='.$post_id.'"class="motel-infor-detail btn btn-outline-warning">Sửa bài</a>';
+                            echo'<p class="motel-infor-date">Ngày đăng: '.$date.'</p>';
+                            echo'<a href="./motel-detail.php?post-id='.$post_id.'"class="motel-infor-detail btn btn-outline-success">Chi tiết</a>';
                         echo'</div>';
                     echo'</div>';
                 echo'</div>';
                 }
             }
-            ?>
-            </div>
-        </div>
-     <?php include 'footer.php'?>
+
+                ?>
+           </div>
+       </div>
+    <?php include 'footer.php'?>

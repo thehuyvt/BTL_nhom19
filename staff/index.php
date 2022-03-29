@@ -3,7 +3,7 @@
     if(!isset($_SESSION['loginSuccess'])){
         header("Location:../index.php");
     }
-    include './header.php'
+    include 'header.php'
 ?>
             <?php
                     include '../config.php';
@@ -37,4 +37,4 @@
                 ?>
            </div>
        </div>
-    <?php include './footer.php'?>
+    <?php include 'footer.php'?>

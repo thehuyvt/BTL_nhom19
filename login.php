@@ -77,11 +77,13 @@
 
                 if(password_verify($pass, $pass_hash)){
                     $_SESSION['loginSuccess'] = $user_email;
-                    // if($level==1){
-                    //     header("Location:./admin/index.php");
-                    // }else{
+                    if($level==1){
                         header("Location:./members/index.php?id=$id");
-                    // }
+                    }else if($level==2){
+                        header("Location:./staff/index.php");
+                    }else{
+                        header("Location:./admin/index.php");
+                    }
                 }else{
                     
                     echo 'Mật khẩu không khớp!';

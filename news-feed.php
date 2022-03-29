@@ -23,6 +23,7 @@
                             $area = $row2['post_area'];
                             $price = $row2['post_price'];
                             $address = $row2['post_address'];
+                            $date = $row2['post_date'];
                         echo'<div class="col-lg-6" style="border: 8px solid #fff;">';
                         echo'<div class="motel-box">';
                         echo'<img src="./asset/upload/'.$img.'" alt="" class="motel-img">';
@@ -31,6 +32,7 @@
                             echo'<p class="motel-infor-area">Diện tích: '.$area.' m2</p>';
                             echo'<p class="motel-infor-price">Giá thuê: '.$price.'đ</p>';
                             echo'<p class="motel-infor-address">Địa chỉ: '.$address.'</p>';
+                            echo'<p class="motel-infor-date">Ngày đăng: '.$date.'</p>';
                             echo'<a href="./members/motel-detail.php?post-id='.$post_id.'"class="motel-infor-detail btn btn-outline-success">Chi tiết</a>';
                         echo'</div>';
                     echo'</div>';

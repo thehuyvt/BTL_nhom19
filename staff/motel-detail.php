@@ -1,15 +1,33 @@
 <?php
-    session_start();
-    if(!isset($_SESSION['loginSuccess'])){
-        header("Location:../index.php");
+    if(isset($_GET['post-id']) ){
+        $post_id = $_GET['post-id'] ; 
+        $sql = "SELECT * FROM posts WHERE post_id = '$post_id'";
+        include '../config.php';
+            $result = mysqli_query($conn, $sql);
+
+            if(mysqli_num_rows($result)>0){
+                $row = mysqli_fetch_assoc($result);
+                $title = $row['post_title'];
+                $img = $row['post_img'];
+                $area = $row['post_area'];
+                $price = $row['post_price'];
+                $address = $row['post_address'];
+                $content = $row['post_content'];
+                $date = $row['post_date'];
+                $user_id = $row['user_id'];
+            }
+        $sql2 = "SELECT * FROM users WHERE user_id = '$user_id'";
+        $result2 = mysqli_query($conn, $sql2);
+        if(mysqli_num_rows($result2)>0){
+            $row2 = mysqli_fetch_assoc($result2);{
+                $user_name = $row2['user_name'];
+                $user_email = $row2['user_email'];
+                $user_phone = $row2['user_phonenumber'];
+            }
+        }
     }
-    include '../config.php';
-    $email = $_SESSION['loginSuccess'];
-    $sql = "SELECT * FROM users WHERE user_email = '$email'";
-    $result = mysqli_query($conn,$sql);
-    if(mysqli_num_rows($result)>0){
-        $row=mysqli_fetch_assoc($result);
-        echo $user_id = $row['user_id'];
+    else{
+        echo "Lỗi, không thể truy cập!";
     }
 ?>
 <!DOCTYPE html>
@@ -44,11 +62,11 @@
                         <a aria-current="page" href="./news-feed.php">Bảng tin</a>
                     </li>
                     <li class="nav-item  mt-1 mb-1  ms-3">
-                        <a aria-current="page" href="./posts.php">Đăng tin</a>
+                        <a aria-current="page" href="./users.php">Người dùng</a>
                     </li>
-                    <li class="nav-item  mt-1 mb-1  ms-3">
+                    <!-- <li class="nav-item  mt-1 mb-1  ms-3">
                         <a aria-current="page" href="./list-news.php">Sửa tin</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item  mt-1 mb-1  ms-3">
                         <a aria-current="page" href="../logout.php">Đăng xuất</a>
                     </li>
@@ -69,36 +87,30 @@
            <div class="container">
            <div class=" motel  row mt-5 mb-5 me-auto ms-auto">
                 <div class="col-md-12 text-center mb-4">
-                    <h2>Danh sách nhà trọ đang cho thuê</h2>
+                    <h2>Thông tin nhà trọ</h2>
                 </div>
-                
-                <?php
-                    $sql2 = "SELECT post_id, post_title, post_img, post_area, post_price, post_address fROM  posts WHERE user_id = $user_id ";
-                    $result2 = mysqli_query($conn, $sql2);
-
-                    if(mysqli_num_rows($result2)>0){
-                        while($row2 = mysqli_fetch_assoc($result2)){
-                            $post_id= $row2['post_id'];
-                            $title = $row2['post_title'];
-                            $img = $row2['post_img'];
-                            $area = $row2['post_area'];
-                            $price = $row2['post_price'];
-                            $address = $row2['post_address'];
-                        echo'<div class="col-lg-6" style="border: 8px solid #fff;">';
-                        echo'<div class="motel-box">';
+                <div class="row container me-auto ms-auto" style="border: 8px solid #fff;">
+                        <div class="motel-box">
+                    <?php
                         echo'<img src="../asset/upload/'.$img.'" alt="" class="motel-img">';
-                        echo'<div class="motel-infor">';
-                            echo'<h4 class="motel-infor-title">'.$title.'</h4>';
-                            echo'<p class="motel-infor-area">Diện tích: '.$area.' m2</p>';
-                            echo'<p class="motel-infor-price">Giá thuê: '.$price.'đ</p>';
-                            echo'<p class="motel-infor-address">Địa chỉ: '.$address.'</p>';
-                            echo'<a href="./update-news.php?post-id='.$post_id.'"class="motel-infor-detail btn btn-outline-warning">Sửa bài</a>';
-                        echo'</div>';
-                    echo'</div>';
-                echo'</div>';
-                }
-            }
-            ?>
-            </div>
-        </div>
-     <?php include 'footer.php'?>
+                        echo'<div class="motel-infor ">';
+                        echo '<h4 class="motel-infor-title">'.$title.'</h4>';
+                        echo '<p class="motel-infor-area">Diện tích: '.$area.' m2</p>';
+                        echo '<p class="motel-infor-price">Giá thuê: '.$price.'đ</p>';
+                        echo '<p class="motel-infor-address">Địa chỉ: '.$address.'</p>';
+                        echo '<p class="motel-infor-address">Mô tả: '.$content.'</p>';
+                        echo '<p class="motel-infor-address">Ngày đăng: '.$date.'</p>';
+                        echo '<p class="motel-infor-address">Liên hệ: '.$user_name.'</p>';
+                        echo '<p class="motel-infor-address">Email: '.$user_email.'</p>';
+                        echo '<p class="motel-infor-address">Số điện thoại: '.$user_phone.'</p>';
+                        ?>
+                            <a href="#"class="motel-infor-detail btn btn-outline-success">Liên hệ ngay</a>
+                        </div>
+                    </div>
+                </div>
+           </div>
+       </div>
+<?php 
+    mysqli_close($conn);
+    include 'footer.php';
+?>

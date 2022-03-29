@@ -9,7 +9,7 @@
     $result = mysqli_query($conn,$sql);
     if(mysqli_num_rows($result)>0){
         $row=mysqli_fetch_assoc($result);
-        echo $user_id = $row['user_id'];
+        $user_id = $row['user_id'];
     }
 ?>
 <!DOCTYPE html>
@@ -44,61 +44,63 @@
                         <a aria-current="page" href="./news-feed.php">Bảng tin</a>
                     </li>
                     <li class="nav-item  mt-1 mb-1  ms-3">
-                        <a aria-current="page" href="./posts.php">Đăng tin</a>
+                        <a aria-current="page" href="./users.php">Quản lí người dùng</a>
                     </li>
                     <li class="nav-item  mt-1 mb-1  ms-3">
-                        <a aria-current="page" href="./list-news.php">Sửa tin</a>
+                        <a aria-current="page" href="./staffs.php">Quản lí nhân viên</a>
                     </li>
                     <li class="nav-item  mt-1 mb-1  ms-3">
                         <a aria-current="page" href="../logout.php">Đăng xuất</a>
                     </li>
                 </ul>  
                 </div>
+                </div>
             </div>
         </nav>
-            <div class="header-search">
-                <form class="d-flex container w-75">
-                    <input class="form-control w-60 ms-3 me-2" type="search" placeholder="Tìm nhà trọ ..." aria-label="Search">
-                    <button class="btn btn-outline-success text-light" type="submit">Tìm kiếm</button>
-                </form>
-            </div>
        </div>
-
+        <hr style="width:80%; margin: 16px auto;">
        <!-- body -->
        <div class="body">
            <div class="container">
            <div class=" motel  row mt-5 mb-5 me-auto ms-auto">
                 <div class="col-md-12 text-center mb-4">
-                    <h2>Danh sách nhà trọ đang cho thuê</h2>
+                    <h2>Danh sách người dùng</h2>
                 </div>
-                
-                <?php
-                    $sql2 = "SELECT post_id, post_title, post_img, post_area, post_price, post_address fROM  posts WHERE user_id = $user_id ";
-                    $result2 = mysqli_query($conn, $sql2);
+            <table class="table mb-5">
 
-                    if(mysqli_num_rows($result2)>0){
-                        while($row2 = mysqli_fetch_assoc($result2)){
-                            $post_id= $row2['post_id'];
-                            $title = $row2['post_title'];
-                            $img = $row2['post_img'];
-                            $area = $row2['post_area'];
-                            $price = $row2['post_price'];
-                            $address = $row2['post_address'];
-                        echo'<div class="col-lg-6" style="border: 8px solid #fff;">';
-                        echo'<div class="motel-box">';
-                        echo'<img src="../asset/upload/'.$img.'" alt="" class="motel-img">';
-                        echo'<div class="motel-infor">';
-                            echo'<h4 class="motel-infor-title">'.$title.'</h4>';
-                            echo'<p class="motel-infor-area">Diện tích: '.$area.' m2</p>';
-                            echo'<p class="motel-infor-price">Giá thuê: '.$price.'đ</p>';
-                            echo'<p class="motel-infor-address">Địa chỉ: '.$address.'</p>';
-                            echo'<a href="./update-news.php?post-id='.$post_id.'"class="motel-infor-detail btn btn-outline-warning">Sửa bài</a>';
-                        echo'</div>';
-                    echo'</div>';
-                echo'</div>';
-                }
-            }
-            ?>
-            </div>
-        </div>
-     <?php include 'footer.php'?>
+            <thead>
+                <tr>
+                <th scope="col">Mã người dùng</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Email</th>
+                <th scope="col">Số di động</th>
+                <th scope="col">Chức năng</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <!-- thay đổi theo csdl -->
+                <?php 
+                //1. Kết nối CSDL
+                    include '../config.php';
+                    
+                //2. Thực hiện truy vấn
+                    $sql = "SELECT * FROM users WHERE user_level = 1";
+                    $result = mysqli_query($conn, $sql);//lưu kết quả trả về vào result
+                //3. Phân tích và xử lý dữ liệu
+                    if(mysqli_num_rows($result)>0){
+                        while($row = mysqli_fetch_assoc($result)){
+                            echo '<tr>';
+                                echo '<th scope="row">'.$row['user_id'].'</th>';
+                                echo '<td>'.$row['user_name'].'</td>';
+                                echo '<td>'.$row['user_email'].'</td>';
+                                echo '<td>'.$row['user_phonenumber'].'</td>';
+                                echo '<td><a href="delete.php?id='.$row['user_id'].'" class="text-success"><i class="fas fa-user-times"></i></i></a></td>';
+                            echo '</tr>';
+                        }
+                    }
+                //4. Đóng kết nối
+                    mysqli_close($conn);
+                ?>
+            </table>
+ <?php include 'footer.php'?>
