@@ -67,7 +67,7 @@
         <hr style="width:80%; margin: 16px auto;">
     <!-- Body -->
     <main class="container pt-4 pb-4 ">
-        <h2 class="text-center">Thêm Thông Tin Nhân Viên</h2>
+        <h2 class="text-center">Sửa Thông Tin Nhân Viên</h2>
         
         <form action="" method="POST" >
 
